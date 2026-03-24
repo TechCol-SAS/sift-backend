@@ -7,6 +7,7 @@ const logger = new Logger('Sift Backend');
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.setGlobalPrefix('api');
   await app.listen(process.env.PORT ?? 3000);
 }
 
