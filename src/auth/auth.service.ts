@@ -16,6 +16,7 @@ import { RefreshTokenDto } from './dto/refresh-token.dto';
 
 import { IJwtPayload } from './interfaces/payload.interface';
 import { IJwtTokens } from './interfaces/jwt-tokens.interface';
+import { SignInDto } from 'src/user/dto/signin.dto';
 
 @Injectable()
 export class AuthService {
@@ -73,6 +74,56 @@ export class AuthService {
       this.logger.error(error);
 
       if (error instanceof BadRequestException) throw error;
+
+      throw new InternalServerErrorException(
+        'Error interno del servidor, por favor revisa los logs',
+      );
+    }
+  }
+
+  public async signIn(signInDto: SignInDto) {
+    const { email, password } = signInDto;
+    try {
+      const user = await this.userService.findByTerm(email);
+
+      if (!user) throw new UnauthorizedException('Credenciales invalidas');
+
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+
+      if (!isPasswordValid)
+        throw new UnauthorizedException('Credenciales invalidas');
+
+      const payload: IJwtPayload = {
+        id: user.id,
+        email: user.email,
+      };
+
+      const jwtTokens = await this.generateTokens(payload);
+
+      const {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        id,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        password: _password,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        refreshToken: _refreshToken,
+        ...restUser
+      } = user;
+
+      return {
+        message: 'Usuario logueado exitosamente',
+        user: {
+          ...restUser,
+          tokens: {
+            accessToken: jwtTokens.accessToken,
+            refreshToken: jwtTokens.refreshToken,
+          },
+        },
+      };
+    } catch (error) {
+      this.logger.log(error);
+
+      if (error instanceof UnauthorizedException) throw error;
 
       throw new InternalServerErrorException(
         'Error interno del servidor, por favor revisa los logs',

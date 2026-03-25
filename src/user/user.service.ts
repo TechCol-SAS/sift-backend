@@ -13,7 +13,7 @@ export class UserService {
   ) {}
 
   public async findByTerm(term: string) {
-    let user: User | null;
+    let user: User | null = null;
 
     switch (true) {
       case isUUID(term):
