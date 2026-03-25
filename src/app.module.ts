@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
 import { DatabaseModule } from './database/database.module';
+import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
 
 import * as Joi from 'joi';
 
@@ -19,9 +21,12 @@ import * as Joi from 'joi';
         DB_USERNAME: Joi.string().required(),
         DB_PASSWORD: Joi.string().required(),
         DB_DATABASE: Joi.string().required(),
+        JWT_SECRET: Joi.string().required(),
       }),
     }),
     DatabaseModule,
+    AuthModule,
+    UserModule,
   ],
   controllers: [],
   providers: [],
