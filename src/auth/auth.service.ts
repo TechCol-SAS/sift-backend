@@ -29,6 +29,13 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
+  /**
+   * Registra un nuevo usuario en el sistema
+   * @param signUpDto - Datos de registro del usuario (email, password, etc.)
+   * @returns Objeto con mensaje de éxito, datos del usuario y tokens de autenticación
+   * @throws {BadRequestException} Si el usuario ya existe
+   * @throws {InternalServerErrorException} Si ocurre un error durante el proceso
+   */
   public async signUp(signUpDto: SignUpDto) {
     const { email, password } = signUpDto;
 
@@ -81,6 +88,13 @@ export class AuthService {
     }
   }
 
+  /**
+   * Autentica un usuario existente en el sistema
+   * @param signInDto - Credenciales de inicio de sesión (email y password)
+   * @returns Objeto con mensaje de éxito, datos del usuario y tokens de autenticación
+   * @throws {UnauthorizedException} Si las credenciales son inválidas
+   * @throws {InternalServerErrorException} Si ocurre un error durante el proceso
+   */
   public async signIn(signInDto: SignInDto) {
     const { email, password } = signInDto;
     try {
@@ -131,6 +145,13 @@ export class AuthService {
     }
   }
 
+  /**
+   * Renueva los tokens de autenticación usando un refresh token válido
+   * @param refreshTokenDto - DTO que contiene el refresh token
+   * @returns Objeto con mensaje de éxito y nuevos tokens de acceso y refresco
+   * @throws {UnauthorizedException} Si el refresh token es inválido o ha expirado
+   * @throws {InternalServerErrorException} Si ocurre un error durante el proceso
+   */
   public async refreshToken(refreshTokenDto: RefreshTokenDto) {
     const { refreshToken } = refreshTokenDto;
     try {
@@ -173,6 +194,12 @@ export class AuthService {
     }
   }
 
+  /**
+   * Genera nuevos tokens de acceso y refresco para un usuario
+   * @param payload - Datos del usuario a incluir en el token (id, email)
+   * @returns Objeto con accessToken y refreshToken generados
+   * @private
+   */
   private async generateTokens(payload: IJwtPayload): Promise<IJwtTokens> {
     const hashedRefreshToken = await bcrypt.hash(payload.id, this.saltOrRounds);
 
