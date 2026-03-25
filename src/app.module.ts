@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
+import { HealthModule } from './health/health.module';
 
 import * as Joi from 'joi';
 
@@ -27,6 +28,7 @@ import * as Joi from 'joi';
     DatabaseModule,
     AuthModule,
     UserModule,
+    HealthModule,
   ],
   controllers: [],
   providers: [],
