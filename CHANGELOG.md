@@ -61,6 +61,16 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 - Módulo Health con endpoint `GET /api/health`
 - Archivo `.env.example` con plantilla de configuración
 
+#### Documentación
+
+- Integración de Swagger/OpenAPI para documentación interactiva
+- Swagger UI disponible en `/api/docs`
+- Especificación OpenAPI en formato JSON en `/api/docs-json`
+- Documentación automática de todos los endpoints
+- Esquemas de DTOs documentados
+- Configuración de autenticación Bearer JWT en Swagger
+- Tags organizados por módulos (Auth, Health)
+
 #### Integración Continua
 
 - Workflow de GitHub Actions para CI
@@ -94,6 +104,7 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 - Documentación de endpoints de API
 - Explicación del flujo de autenticación
 - Listado de scripts disponibles
+- Documentación interactiva con Swagger/OpenAPI
 
 ---
 
@@ -113,7 +124,6 @@ Esta es la primera iteración funcional del backend de Sift. El sistema incluye:
 
 - Implementar endpoints CRUD para gestión de usuarios
 - Agregar sistema de roles y permisos
-- Implementar documentación Swagger/OpenAPI
 - Agregar rate limiting para prevenir abuso
 - Implementar funcionalidad de logout
 - Agregar tests unitarios y e2e

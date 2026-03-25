@@ -14,6 +14,7 @@ API RESTful que proporciona servicios de autenticación, gestión de usuarios y 
 - **TypeORM 0.3.28** - ORM para gestión de datos
 - **JWT** - Autenticación con tokens
 - **Bcrypt 6.x** - Hashing de contraseñas
+- **Swagger/OpenAPI** - Documentación interactiva de API
 
 ## 📁 Estructura del Proyecto
 
@@ -146,55 +147,24 @@ npm run start:prod
 
 ## 📡 API Endpoints
 
+### Documentación Interactiva
+
+La documentación completa de la API está disponible a través de Swagger UI:
+
+- **Swagger UI:** `http://localhost:3000/api/docs` - Interfaz interactiva para explorar y probar endpoints
+- **OpenAPI JSON:** `http://localhost:3000/api/docs-json` - Especificación OpenAPI en formato JSON
+
+Swagger proporciona:
+
+- Listado completo de endpoints disponibles
+- Esquemas de request/response
+- Pruebas interactivas de endpoints
+- Autenticación JWT integrada
+- Ejemplos de uso
+
 ### Salud
 
 - `GET /api/health` - Health check del servidor (público)
-
-### Autenticación
-
-- `POST /api/auth/sign-up` - Registro de usuarios (público)
-
-  ```json
-  {
-    "firstName": "Juan",
-    "lastName": "Pérez",
-    "email": "juan@example.com",
-    "password": "Password123",
-    "isActive": true
-  }
-  ```
-
-- `POST /api/auth/sign-in` - Inicio de sesión (público)
-
-  ```json
-  {
-    "email": "juan@example.com",
-    "password": "Password123"
-  }
-  ```
-
-- `POST /api/auth/refresh-token` - Renovación de tokens (protegido)
-  ```json
-  {
-    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-  }
-  ```
-
-### Respuesta de Autenticación
-
-```json
-{
-  "user": {
-    "id": "uuid",
-    "firstName": "Juan",
-    "lastName": "Pérez",
-    "email": "juan@example.com",
-    "isActive": true
-  },
-  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-}
-```
 
 ## 🗄️ Base de Datos
 
@@ -259,17 +229,7 @@ npm run test:e2e       # Tests end-to-end
 - ✅ Health check endpoint
 - ✅ Configuración centralizada
 - ✅ CI/CD con GitHub Actions
-
-## 🚧 Próximas Funcionalidades
-
-- [ ] Endpoints de gestión de usuarios (CRUD)
-- [ ] Sistema de roles y permisos
-- [ ] Documentación Swagger/OpenAPI
-- [ ] Rate limiting
-- [ ] Logout con invalidación de tokens
-- [ ] Soft delete de usuarios
-- [ ] Paginación en listados
-- [ ] Tests unitarios y e2e completos
+- ✅ Documentación Swagger/OpenAPI interactiva
 
 ## 📝 Convenciones de Código
 
